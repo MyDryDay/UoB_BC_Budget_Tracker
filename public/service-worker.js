@@ -67,17 +67,4 @@ self.addEventListener('fetch', function (evt) {
         );
         return;
     }
-
-    // Serves static files from the cache
-    // Carry on with the fetch request when the requested data is not in the cache
-    // This allows the page to be accessible offline
-    evt.respondWith(
-        caches.open(CACHE_NAME).then(
-            (cache) => {
-                return cache.match(evt.request).then(
-                    (response) => {
-                        return response || fetch(evt.request);
-                    });
-            })
-    );
 });
