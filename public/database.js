@@ -25,15 +25,15 @@ request.onerror = (event) => {
     console.log(`Error: ${event.target.errorCode}`);
 };
 
-// // Function to save a record to IndexedDB
-// const saveRecord = (record) => {
-//     // Create a new transaction on the 'pending' db with readwrite access
-//     const transaction = db.transaction(["pending"], "readwrite");
-//     // Access the 'pending' object store
-//     const store = transaction.objectStore("pending");
-//     // Add the record to the object store
-//     store.add(record);
-// }
+// Function to save a record to IndexedDB
+const saveRecord = (record) => {
+    // Create a new transaction on the 'pending' db with readwrite access
+    const transaction = db.transaction(["pending"], "readwrite");
+    // Access the 'pending' object store
+    const store = transaction.objectStore("pending");
+    // Add the record to the object store
+    store.add(record);
+}
 
 // Function to check the databse for changes
 const checkDatabase = () => {
