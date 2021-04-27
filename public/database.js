@@ -69,3 +69,6 @@ const checkDatabase = () => {
         }
     };
 }
+
+// Listens for a network connection & calls checkDatabase if there is one
+window.addEventListener("online", checkDatabase);
