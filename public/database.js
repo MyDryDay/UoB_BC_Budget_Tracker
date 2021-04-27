@@ -35,37 +35,37 @@ request.onerror = (event) => {
 //     store.add(record);
 // }
 
-// // Function to check the databse for changes
-// const checkDatabase = () => {
-//     // Open a transaction on the 'pending' db
-//     const transaction = db.transaction("pending");
-//     // Access the 'pending' object store
-//     const store = transaction.objectStore("pending");
-//     // Get all records
-//     const getAll = store.getAll();
-
-//     // If getAll() succeeds POST data to '/api/transaction/bulk'
-//     getAll.onsuccess = () => {
-//         if(getAll.result.length > 0){
-//             fetch('/api/transaction/bulk', {
-//                 method: 'POST',
-//                 body: JSON.stringify(getAll.result),
-//                 headers: {
-//                     Accept: 'application/json, text/plain, */*',
-//                     'Content-Type': 'application/json',
-//                 },
-//             }).then(
-//                 (response) => response.json()
-//             ).then(
-//                 () => {
-//                     // On success, open a transaction on 'pending' db
-//                     const transaction = db.transaction(["pending"], "readwrite");
-//                     // Access the 'pending' object store
-//                     const store = transaction.objectStore("pending");
-//                     // Delete everything in object store
-//                     store.clear();
-//                 }
-//             );
-//         }
-//     };
-// }
+// Function to check the databse for changes
+const checkDatabase = () => {
+    // Open a transaction on the 'pending' db
+    const transaction = db.transaction("pending");
+    // Access the 'pending' object store
+    const store = transaction.objectStore("pending");
+    // Get all records
+    const getAll = store.getAll();
+    
+    // If getAll() succeeds POST data to '/api/transaction/bulk'
+    getAll.onsuccess = () => {
+        if(getAll.result.length > 0){
+            fetch('/api/transaction/bulk', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
+            }).then(
+                (response) => response.json()
+            ).then(
+                () => {
+                    // On success, open a transaction on 'pending' db
+                    const transaction = db.transaction(["pending"], "readwrite");
+                    // Access the 'pending' object store
+                    const store = transaction.objectStore("pending");
+                    // Delete everything in object store
+                    store.clear();
+                }
+            );
+        }
+    };
+}
