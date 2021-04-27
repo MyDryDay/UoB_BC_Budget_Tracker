@@ -12,13 +12,13 @@ request.onupgradeneeded = (event) => {
     });
 };
 
-// // Called each time a new request is made
-// request.onsuccess = (event) => {
-//     db = event.target.result;
-//     if(navigator.onLine){
-//         checkDatabase();
-//     }
-// };
+// Called each time a new request is made
+request.onsuccess = (event) => {
+    db = event.target.result;
+    if(navigator.onLine){
+        checkDatabase();
+    }
+};
 
 // Called in the event of an error
 request.onerror = (event) => {
@@ -43,7 +43,7 @@ const checkDatabase = () => {
     const store = transaction.objectStore("pending");
     // Get all records
     const getAll = store.getAll();
-    
+
     // If getAll() succeeds POST data to '/api/transaction/bulk'
     getAll.onsuccess = () => {
         if(getAll.result.length > 0){
