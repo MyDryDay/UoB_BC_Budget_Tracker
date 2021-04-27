@@ -20,10 +20,10 @@ request.onupgradeneeded = (event) => {
 //     }
 // };
 
-// // Called in the event of an error
-// request.onerror = (event) => {
-//     console.log(`Error: ${event.target.errorCode}`);
-// };
+// Called in the event of an error
+request.onerror = (event) => {
+    console.log(`Error: ${event.target.errorCode}`);
+};
 
 // // Function to save a record to IndexedDB
 // const saveRecord = (record) => {
