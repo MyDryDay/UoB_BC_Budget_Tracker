@@ -26,7 +26,7 @@ request.onerror = (event) => {
 };
 
 // Function to save a record to IndexedDB
-const saveRecord = (record) => {
+export const saveRecord = (record) => {
     // Create a new transaction on the 'pending' db with readwrite access
     const transaction = db.transaction(["pending"], "readwrite");
     // Access the 'pending' object store
