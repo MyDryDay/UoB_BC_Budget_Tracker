@@ -1,4 +1,10 @@
-import {saveRecord} from './database';
+// import {saveRecord} from './database';
+// import {checkDatabase} from './database';
+// import {db} from './database';
+const db = require('./database');
+
+// Listens for a network connection & calls checkDatabase if there is one
+window.addEventListener("online", db.checkDatabase);
 
 let transactions = [];
 let myChart;
@@ -138,7 +144,7 @@ function sendTransaction(isAdding) {
   })
   .catch(err => {
     // fetch failed, so save in indexed db
-    saveRecord(transaction);
+    db.saveRecord(transaction);
 
     // clear form
     nameEl.value = "";
