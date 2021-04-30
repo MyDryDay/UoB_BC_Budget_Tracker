@@ -1,4 +1,4 @@
-import WebpackPwaManifest from 'webpack-pwa-manifest';
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 
 const config = {
@@ -7,7 +7,7 @@ const config = {
         database: './public/database.js',
     },
     output: {
-        path: __dirname + 'public/dist',
+        path: __dirname + '/public/dist',
         filename: '[name].bundle.js',
     },
     mode: 'development',
@@ -26,6 +26,8 @@ const config = {
         ],
     },
     plugins: [new WebpackPwaManifest({
+        filename: 'manifest.json',
+        inject: false,
         fingerprints: false,
         name: 'Online/Offline Budget Tracker',
         short_name: 'Budget Tracker PWA',
