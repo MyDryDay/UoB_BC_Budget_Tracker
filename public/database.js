@@ -15,6 +15,7 @@ request.onupgradeneeded = (event) => {
 // Called each time a new request is made
 request.onsuccess = (event) => {
     db = event.target.result;
+    // If online, check IndexedDB & post records in 'pending' document to mongodb
     if(navigator.onLine){
         checkDatabase();
     }
@@ -36,7 +37,7 @@ export const saveRecord = (record) => {
 }
 
 // Function to check the databse for changes
-const checkDatabase = () => {
+export const checkDatabase = () => {
     // Open a transaction on the 'pending' db
     const transaction = db.transaction("pending");
     // Access the 'pending' object store
@@ -69,6 +70,3 @@ const checkDatabase = () => {
         }
     };
 }
-
-// Listens for a network connection & calls checkDatabase if there is one
-window.addEventListener("online", checkDatabase);
