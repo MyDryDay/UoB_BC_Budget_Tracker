@@ -6,7 +6,6 @@ const FILES_TO_CACHE = [
     "/index.html",
     "/styles.css",
     "/dist/index.bundle.js",
-    "/dist/database.bundle.js",
     "/dist/manifest.json",
     "/dist/assets/icons/icon_72x72.png",
     "/dist/assets/icons/icon_96x96.png",
@@ -17,6 +16,7 @@ const FILES_TO_CACHE = [
     "/dist/assets/icons/icon_512x512.png",
 ];
 
+// Cache files to be cached in memory
 self.addEventListener('install', function (evt) {
     evt.waitUntil(
         caches.open(CACHE_NAME).then(
@@ -28,6 +28,7 @@ self.addEventListener('install', function (evt) {
 
     self.skipWaiting();
 });
+
 
 self.addEventListener("activate", function (evt) {
     evt.waitUntil(
@@ -50,24 +51,23 @@ self.addEventListener("activate", function (evt) {
     self.clients.claim();
 });
 
+// fetch request
 self.addEventListener('fetch', function (evt) {
-    // The following code caches responses for requests
-    if (evt.request.url.includes('./routes/api/')) {
+    // The following code caches successful requests to API
+    if (evt.request.url.includes('/api/')) {
         evt.respondWith(
             caches.open(DATA_CACHE_NAME).then(
-                (cache) => {
-                    return fetch(evt.request).then(
-                        (response) => {
-                            if (response.status === 200) {
-                                cache.put(evt.request.url, response.clone());
-                            }
-                            return response;
+                async (cache) => {
+                    try {
+                        const response = await fetch(evt.request);
+                        // Status 200: replicate & store it in cache
+                        if (response.status === 200) {
+                            cache.put(evt.request.url, response.clone());
                         }
-                    ).catch(
-                        (err) => {
-                            return cache.match(evt.request);
-                        }
-                    );
+                        return response;
+                    } catch (err) {
+                        return await cache.match(evt.request);
+                    }
                 }).catch(
                     (err) => {
                         console.log(err)
@@ -76,4 +76,13 @@ self.addEventListener('fetch', function (evt) {
         );
         return;
     }
+
+    // If request isn't for API, deliver static assets instead
+    evt.respondWith(
+        caches.match(evt.request).then(function(response) {
+          return response || fetch(evt.request);
+        })
+    );
+
 });
+
