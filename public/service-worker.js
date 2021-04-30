@@ -4,8 +4,17 @@ const DATA_CACHE_NAME = 'data-cache-v1';
 const FILES_TO_CACHE = [
     "/",
     "/index.html",
-    "/index.js",
-    "/styles.css"
+    "/styles.css",
+    "/dist/index.bundle.js",
+    "/dist/database.bundle.js",
+    "/dist/manifest.json",
+    "/dist/assets/icons/icon_72x72.png",
+    "/dist/assets/icons/icon_96x96.png",
+    "/dist/assets/icons/icon_128x128.png",
+    "/dist/assets/icons/icon_192x192.png",
+    "/dist/assets/icons/icon_256x256.png",
+    "/dist/assets/icons/icon_384x384.png",
+    "/dist/assets/icons/icon_512x512.png",
 ];
 
 self.addEventListener('install', function (evt) {
