@@ -9,7 +9,6 @@
     "lite-server": "lite-server",
     "prestart": "npm run webpack",
     "webpack": "webpack --watch"
-    
   },
   "repository": {
     "type": "git",
@@ -31,9 +30,6 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/preset-env": "^7.14.0",
-    "babel-loader": "^8.2.2",
-    "webpack": "^5.36.1",
-    "webpack-cli": "^4.6.0",
-    "webpack-pwa-manifest": "^4.3.0"
+    "babel-loader": "^8.2.2"
   }
 }
